@@ -60,9 +60,8 @@ public class Main {
     }
 
     public static void displaySeat(char[][] seats) {
-        System.out.print("  ");
         for (int col = 1; col <= seats[0].length; col++) {
-            System.out.print(" " + col + "  ");
+            System.out.printf("%4d",col);
         }
         System.out.println();
 
