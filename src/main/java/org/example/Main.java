@@ -7,12 +7,12 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        int numRows = 7;   // 행
-        int numCols = 10;  // 열
+        int seatRows = 7;   // 행
+        int seatCols = 10;  // 열
 
-        char[][] seats = new char[numRows][numCols];
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
+        char[][] seats = new char[seatRows][seatCols];
+        for (int i = 0; i < seatRows; i++) {
+            for (int j = 0; j < seatCols; j++) {
                 seats[i][j] = 'O';
             }
         }
@@ -27,16 +27,17 @@ public class Main {
             char rowChoice;
 
             try {
-                System.out.print("열 번호를 선택하세요 (1-" + numCols + ") 또는 '0'을 입력하여 종료: ");
+                System.out.print("열 번호를 선택하세요 (1-" + seatCols + ") 또는 '0'을 입력하여 종료: ");
                 colChoice = sc.nextInt();
                 if (colChoice == 0) {
+                    System.out.println("좌석 선택을 취소합니다.");
                     break;
                 }
 
-                System.out.print("행 번호를 선택하세요 (A-" + (char)('A' + numRows - 1) + "): ");
+                System.out.print("행 번호를 선택하세요 (A-" + (char) ('A' + seatRows - 1) + "): ");
                 rowChoice = sc.next().charAt(0);
 
-                if (colChoice < 1 || colChoice > numCols || rowChoice < 'A' || rowChoice > (char)('A' + numRows - 1)) {
+                if (colChoice < 1 || colChoice > seatCols || rowChoice < 'A' || rowChoice > (char) ('A' + seatRows - 1)) {
                     System.out.println("잘못된 좌석을 선택하셨습니다. 다시 선택하세요.");
                     continue;
                 }
@@ -48,25 +49,26 @@ public class Main {
                 }
 
                 seats[rowIndex][colChoice - 1] = 'X';
-                System.out.println("좌석이 성공적으로 예매되었습니다.");
+                displaySeat(seats);
+                System.out.printf("좌석이 예매되었습니다.");
+                break;
             } catch (InputMismatchException e) {
                 System.out.println("잘못된 입력입니다. 숫자 또는 알파벳을 다시 입력하세요.");
                 sc.nextLine();
             }
         }
-
-        System.out.println("좌석 선택을 취소합니다.");
         sc.close();
     }
 
     public static void displaySeat(char[][] seats) {
-        for (int col = 1; col <= seats[0].length; col++) {
-            System.out.printf("%4d",col);
+        for (int i = 1; i <= seats[0].length; i++) {
+            System.out.printf("%4d", i);
         }
         System.out.println();
 
         for (int i = 0; i < seats.length; i++) {
-            System.out.print((char)('A' + i) + " ");
+            System.out.print((char) ('A' + i) + " ");
+
             for (char c : seats[i]) {
                 if (c == 'O') {
                     System.out.print("[ ] ");
